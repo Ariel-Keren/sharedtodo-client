@@ -10,9 +10,9 @@ type Props = {
 };
 
 const Todo: React.FC<Props> = ({ todo, todoIndex }) => {
-  const { lists, toggleTodoComplete } = useAppState();
+  const { lists, toggleTodoComplete, removeTodo } = useAppState();
 
-  const { toggleCompleteAPI } = useAPI();
+  const { toggleCompleteAPI, removeTodoAPI } = useAPI();
 
   const { index } = useParams();
 
@@ -24,9 +24,15 @@ const Todo: React.FC<Props> = ({ todo, todoIndex }) => {
   )
     notFound();
 
-  const toggleComplete = async () => {
-    toggleCompleteAPI(Number(index), todoIndex, !todo.isCompleted);
+  const toggleComplete = () => {
     toggleTodoComplete(Number(index), todoIndex);
+    toggleCompleteAPI(Number(index), todoIndex, !todo.isCompleted);
+  };
+
+  const removeThisTodo = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    removeTodo(Number(index), todoIndex);
+    removeTodoAPI(Number(index), todoIndex);
   };
 
   return (
@@ -35,15 +41,24 @@ const Todo: React.FC<Props> = ({ todo, todoIndex }) => {
       className="flex justify-between items-center bg-gray-900 w-1/2 px-5 h-16 rounded cursor-pointer transition-all hover:bg-gray-800 hover:pl-10"
     >
       <p
-        className={`text-white text-lg h-7 ${
-          todo.isCompleted && "border-b-2 border-b-green-300"
+        className={`text-white text-lg h-7 border-b-2 ${
+          todo.isTrash
+            ? "border-b-red-400"
+            : todo.isCompleted
+            ? "border-b-green-300"
+            : "border-b-gray-600"
         }`}
       >
         {todo.text}
       </p>
       <div className="flex items-center gap-3">
-        {todo.isCompleted && <FaCheck className="text-green-300" />}
-        <button className="bg-gray-900 bg-opacity-50 p-2 rounded transition-colors hover:bg-opacity-100">
+        {todo.isCompleted && !todo.isTrash && (
+          <FaCheck className="text-green-300" />
+        )}
+        <button
+          onClick={removeThisTodo}
+          className="bg-gray-900 bg-opacity-50 p-2 rounded transition-colors hover:bg-opacity-100"
+        >
           <FaTrash className="text-gray-300" />
         </button>
       </div>

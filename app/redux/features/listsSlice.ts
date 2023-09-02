@@ -17,6 +17,7 @@ export const listsSlice = createSlice({
       state[action.payload.listIndex].todos.push({
         text: action.payload.text,
         isCompleted: false,
+        isTrash: false,
       });
     },
     toggleTodoCompleteReducer: (
@@ -32,6 +33,22 @@ export const listsSlice = createSlice({
     removeListReducer: (state, action: PayloadAction<number>) => {
       state.splice(action.payload, 1);
     },
+    removeTodoReducer: (
+      state,
+      action: PayloadAction<{ listIndex: number; todoIndex: number }>
+    ) => {
+      if (
+        state[action.payload.listIndex].todos[action.payload.todoIndex].isTrash
+      )
+        state[action.payload.listIndex].todos.splice(
+          action.payload.todoIndex,
+          1
+        );
+      else
+        state[action.payload.listIndex].todos[
+          action.payload.todoIndex
+        ].isTrash = true;
+    },
   },
 });
 
@@ -41,5 +58,6 @@ export const {
   addTodoReducer,
   toggleTodoCompleteReducer,
   removeListReducer,
+  removeTodoReducer,
 } = listsSlice.actions;
 export default listsSlice.reducer;

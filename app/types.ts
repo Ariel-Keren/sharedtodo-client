@@ -1,6 +1,7 @@
 export type TodoType = {
   text: string;
   isCompleted: boolean;
+  isTrash: boolean;
 };
 
 export type ListType = {
@@ -18,7 +19,8 @@ const isTodoArray = (value: unknown): value is TodoType[] => {
         "text" in element &&
         "isCompleted" in element &&
         typeof element.text === "string" &&
-        typeof element.isCompleted === "boolean"
+        typeof element.isCompleted === "boolean" &&
+        typeof element.isTrash === "boolean"
     )
   );
 };

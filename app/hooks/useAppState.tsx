@@ -11,6 +11,7 @@ import {
   addTodoReducer,
   toggleTodoCompleteReducer,
   removeListReducer,
+  removeTodoReducer,
 } from "../redux/features/listsSlice";
 import { ListType } from "../types";
 
@@ -33,6 +34,8 @@ const useAppState = () => {
     dispatch(toggleTodoCompleteReducer({ listIndex, todoIndex }));
   const removeList = (listIndex: number) =>
     dispatch(removeListReducer(listIndex));
+  const removeTodo = (listIndex: number, todoIndex: number) =>
+    dispatch(removeTodoReducer({ listIndex, todoIndex }));
 
   return {
     username,
@@ -44,6 +47,7 @@ const useAppState = () => {
     addTodo,
     toggleTodoComplete,
     removeList,
+    removeTodo,
   };
 };
 

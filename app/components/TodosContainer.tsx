@@ -17,15 +17,22 @@ const TodosContainer: React.FC = () => {
 
   const todoIndices = [] as number[];
   const completedTodoIndices = [] as number[];
+  const todosInTrashIndices = [] as number[];
 
   lists[Number(index)].todos.forEach((todo, todoIndex) => {
-    if (todo.isCompleted) completedTodoIndices.push(todoIndex);
+    if (todo.isTrash) todosInTrashIndices.push(todoIndex);
+    else if (todo.isCompleted) completedTodoIndices.push(todoIndex);
     else todoIndices.push(todoIndex);
   });
 
-  const todos = lists[Number(index)].todos.filter((todo) => !todo.isCompleted);
+  const todos = lists[Number(index)].todos.filter(
+    (todo) => !todo.isCompleted && !todo.isTrash
+  );
   const completedTodos = lists[Number(index)].todos.filter(
-    (todo) => todo.isCompleted
+    (todo) => todo.isCompleted && !todo.isTrash
+  );
+  const todosInTrash = lists[Number(index)].todos.filter(
+    (todo) => todo.isTrash
   );
 
   return (
@@ -41,6 +48,12 @@ const TodosContainer: React.FC = () => {
         color="#86efac"
         todos={completedTodos}
         indices={completedTodoIndices}
+      />
+      <TodoStateContainer
+        title="Trash"
+        color="#f87171"
+        todos={todosInTrash}
+        indices={todosInTrashIndices}
       />
     </div>
   );

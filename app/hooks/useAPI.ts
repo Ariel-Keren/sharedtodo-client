@@ -6,6 +6,7 @@ import addList from "../api/addList";
 import authenticate from "../api/authenticate";
 import { isListArray } from "../types";
 import removeList from "../api/removeList";
+import removeTodo from "../api/removeTodo";
 
 const useAPI = () => {
   const { username, setUsername, setLists } = useAppState();
@@ -50,12 +51,16 @@ const useAPI = () => {
   const removeListAPI = (listIndex: number) =>
     removeList(cookies.token, username, listIndex);
 
+  const removeTodoAPI = (listIndex: number, todoIndex: number) =>
+    removeTodo(cookies.token, username, listIndex, todoIndex);
+
   return {
     authenticateAPI,
     addListAPI,
     addTodoAPI,
     toggleCompleteAPI,
     removeListAPI,
+    removeTodoAPI,
   };
 };
 
