@@ -1,8 +1,7 @@
 import { notFound, useParams } from "next/navigation";
 import useAppState from "../hooks/useAppState";
 import { TodoType } from "../types";
-import { FaCheck } from "react-icons/fa";
-import { useCookies } from "react-cookie";
+import { FaCheck, FaTrash } from "react-icons/fa";
 import useAPI from "../hooks/useAPI";
 
 type Props = {
@@ -42,7 +41,12 @@ const Todo: React.FC<Props> = ({ todo, todoIndex }) => {
       >
         {todo.text}
       </p>
-      {todo.isCompleted && <FaCheck className="text-green-300" />}
+      <div className="flex items-center gap-3">
+        {todo.isCompleted && <FaCheck className="text-green-300" />}
+        <button className="bg-gray-900 bg-opacity-50 p-2 rounded transition-colors hover:bg-opacity-100">
+          <FaTrash className="text-gray-300" />
+        </button>
+      </div>
     </div>
   );
 };

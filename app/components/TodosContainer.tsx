@@ -1,6 +1,6 @@
 import { notFound, useParams } from "next/navigation";
 import useAppState from "../hooks/useAppState";
-import Todo from "./Todo";
+import TodoStateContainer from "./TodoStateContainer";
 
 const TodosContainer: React.FC = () => {
   const { lists } = useAppState();
@@ -15,11 +15,33 @@ const TodosContainer: React.FC = () => {
   )
     notFound();
 
+  const todoIndices = [] as number[];
+  const completedTodoIndices = [] as number[];
+
+  lists[Number(index)].todos.forEach((todo, todoIndex) => {
+    if (todo.isCompleted) completedTodoIndices.push(todoIndex);
+    else todoIndices.push(todoIndex);
+  });
+
+  const todos = lists[Number(index)].todos.filter((todo) => !todo.isCompleted);
+  const completedTodos = lists[Number(index)].todos.filter(
+    (todo) => todo.isCompleted
+  );
+
   return (
-    <div className="flex flex-col items-center gap-2">
-      {lists[Number(index)].todos.map((todo, todoIndex) => (
-        <Todo todo={todo} todoIndex={todoIndex} key={todoIndex} />
-      ))}
+    <div className="flex justify-center">
+      <TodoStateContainer
+        title="Todos"
+        color="#4b5563"
+        todos={todos}
+        indices={todoIndices}
+      />
+      <TodoStateContainer
+        title="Completed"
+        color="#86efac"
+        todos={completedTodos}
+        indices={completedTodoIndices}
+      />
     </div>
   );
 };
