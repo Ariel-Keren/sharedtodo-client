@@ -9,7 +9,7 @@ import {
   setListsReducer,
   addListReducer,
   addTodoReducer,
-  toggleTodoCompleteReducer,
+  changeTodoStateReducer,
   removeListReducer,
   removeTodoReducer,
 } from "../redux/features/listsSlice";
@@ -30,8 +30,8 @@ const useAppState = () => {
   const addList = (title: string) => dispatch(addListReducer(title));
   const addTodo = (listIndex: number, text: string) =>
     dispatch(addTodoReducer({ listIndex, text }));
-  const toggleTodoComplete = (listIndex: number, todoIndex: number) =>
-    dispatch(toggleTodoCompleteReducer({ listIndex, todoIndex }));
+  const changeTodoState = (listIndex: number, todoIndex: number) =>
+    dispatch(changeTodoStateReducer({ listIndex, todoIndex }));
   const removeList = (listIndex: number) =>
     dispatch(removeListReducer(listIndex));
   const removeTodo = (listIndex: number, todoIndex: number) =>
@@ -45,7 +45,7 @@ const useAppState = () => {
     setLists,
     addList,
     addTodo,
-    toggleTodoComplete,
+    changeTodoState,
     removeList,
     removeTodo,
   };

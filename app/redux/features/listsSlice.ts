@@ -20,15 +20,22 @@ export const listsSlice = createSlice({
         isTrash: false,
       });
     },
-    toggleTodoCompleteReducer: (
+    changeTodoStateReducer: (
       state,
       action: PayloadAction<{ listIndex: number; todoIndex: number }>
     ) => {
-      state[action.payload.listIndex].todos[
-        action.payload.todoIndex
-      ].isCompleted =
-        !state[action.payload.listIndex].todos[action.payload.todoIndex]
-          .isCompleted;
+      if (
+        state[action.payload.listIndex].todos[action.payload.todoIndex].isTrash
+      )
+        state[action.payload.listIndex].todos[
+          action.payload.todoIndex
+        ].isTrash = false;
+      else
+        state[action.payload.listIndex].todos[
+          action.payload.todoIndex
+        ].isCompleted =
+          !state[action.payload.listIndex].todos[action.payload.todoIndex]
+            .isCompleted;
     },
     removeListReducer: (state, action: PayloadAction<number>) => {
       state.splice(action.payload, 1);
@@ -56,7 +63,7 @@ export const {
   setListsReducer,
   addListReducer,
   addTodoReducer,
-  toggleTodoCompleteReducer,
+  changeTodoStateReducer,
   removeListReducer,
   removeTodoReducer,
 } = listsSlice.actions;

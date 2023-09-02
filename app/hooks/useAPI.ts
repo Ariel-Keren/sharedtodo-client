@@ -1,6 +1,6 @@
 import { useCookies } from "react-cookie";
 import useAppState from "./useAppState";
-import toggleComplete from "../api/toggleComplete";
+import changeTodoState from "../api/changeTodoState";
 import addTodo from "../api/addTodo";
 import addList from "../api/addList";
 import authenticate from "../api/authenticate";
@@ -41,12 +41,8 @@ const useAPI = () => {
   const addTodoAPI = (listIndex: number, text: string) =>
     addTodo(cookies.token, username, listIndex, text);
 
-  const toggleCompleteAPI = (
-    listIndex: number,
-    todoIndex: number,
-    isCompleted: boolean
-  ) =>
-    toggleComplete(cookies.token, username, listIndex, todoIndex, isCompleted);
+  const changeTodoStateAPI = (listIndex: number, todoIndex: number) =>
+    changeTodoState(cookies.token, username, listIndex, todoIndex);
 
   const removeListAPI = (listIndex: number) =>
     removeList(cookies.token, username, listIndex);
@@ -58,7 +54,7 @@ const useAPI = () => {
     authenticateAPI,
     addListAPI,
     addTodoAPI,
-    toggleCompleteAPI,
+    changeTodoStateAPI,
     removeListAPI,
     removeTodoAPI,
   };

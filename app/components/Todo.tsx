@@ -10,9 +10,9 @@ type Props = {
 };
 
 const Todo: React.FC<Props> = ({ todo, todoIndex }) => {
-  const { lists, toggleTodoComplete, removeTodo } = useAppState();
+  const { lists, changeTodoState, removeTodo } = useAppState();
 
-  const { toggleCompleteAPI, removeTodoAPI } = useAPI();
+  const { changeTodoStateAPI, removeTodoAPI } = useAPI();
 
   const { index } = useParams();
 
@@ -24,9 +24,9 @@ const Todo: React.FC<Props> = ({ todo, todoIndex }) => {
   )
     notFound();
 
-  const toggleComplete = () => {
-    toggleTodoComplete(Number(index), todoIndex);
-    toggleCompleteAPI(Number(index), todoIndex, !todo.isCompleted);
+  const changeThisTodoState = () => {
+    changeTodoState(Number(index), todoIndex);
+    changeTodoStateAPI(Number(index), todoIndex);
   };
 
   const removeThisTodo = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -37,7 +37,7 @@ const Todo: React.FC<Props> = ({ todo, todoIndex }) => {
 
   return (
     <div
-      onClick={toggleComplete}
+      onClick={changeThisTodoState}
       className="flex justify-between items-center bg-gray-900 w-1/2 px-5 h-16 rounded cursor-pointer transition-all hover:bg-gray-800 hover:pl-10"
     >
       <p
