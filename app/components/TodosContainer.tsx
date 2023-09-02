@@ -36,7 +36,7 @@ const TodosContainer: React.FC = () => {
   );
 
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-col p-5 gap-x-5 lg:flex-row lg:justify-center">
       <TodoStateContainer
         title="Todos"
         color="#4b5563"

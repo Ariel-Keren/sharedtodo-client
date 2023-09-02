@@ -38,7 +38,7 @@ const Todo: React.FC<Props> = ({ todo, todoIndex }) => {
   return (
     <div
       onClick={changeThisTodoState}
-      className="flex justify-between items-center bg-gray-900 w-1/2 px-5 h-16 rounded cursor-pointer transition-all hover:bg-gray-800 hover:pl-10"
+      className="flex justify-between items-center bg-gray-900 w-full px-5 h-16 rounded cursor-pointer transition-all hover:bg-gray-800 hover:pl-10 sm:w-3/4 md:w-2/3 lg:w-full 2xl:w-3/4"
     >
       <p
         className={`text-white text-lg h-7 border-b-2 ${
