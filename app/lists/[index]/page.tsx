@@ -2,6 +2,7 @@
 
 import CreateTodoModal from "@/app/components/CreateTodoModal";
 import Header from "@/app/components/Header";
+import Title from "@/app/components/Title";
 import TodosContainer from "@/app/components/TodosContainer";
 import useAppState from "@/app/hooks/useAppState";
 import { notFound, useParams } from "next/navigation";
@@ -22,6 +23,7 @@ const ListPage: React.FC = () => {
   return (
     <>
       <Header Modal={CreateTodoModal} />
+      <Title title={lists[Number(index)].title} />
       <TodosContainer />
     </>
   );
