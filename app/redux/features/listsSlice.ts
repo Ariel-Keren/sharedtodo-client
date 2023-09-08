@@ -8,7 +8,7 @@ export const listsSlice = createSlice({
     setListsReducer: (_, action: PayloadAction<ListType[]>) => action.payload,
     addListReducer: (state, action: PayloadAction<string>) => [
       ...state,
-      { title: action.payload, todos: [] },
+      { title: action.payload, isPublic: false, todos: [] },
     ],
     addTodoReducer: (
       state,
@@ -19,6 +19,9 @@ export const listsSlice = createSlice({
         isCompleted: false,
         isTrash: false,
       });
+    },
+    toggleListVisibilityReducer: (state, action: PayloadAction<number>) => {
+      state[action.payload].isPublic = !state[action.payload].isPublic;
     },
     changeTodoStateReducer: (
       state,
@@ -63,6 +66,7 @@ export const {
   setListsReducer,
   addListReducer,
   addTodoReducer,
+  toggleListVisibilityReducer,
   changeTodoStateReducer,
   removeListReducer,
   removeTodoReducer,

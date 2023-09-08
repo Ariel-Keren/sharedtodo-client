@@ -4,7 +4,7 @@ import ListsContainer from "./ListsContainer";
 
 const App: React.FC = () => (
   <>
-    <Header Modal={CreateListModal} />
+    <Header SettingsModal={CreateListModal} AddModal={CreateListModal} />
     <ListsContainer />
   </>
 );

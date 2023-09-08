@@ -2,6 +2,7 @@
 
 import CreateTodoModal from "@/app/components/CreateTodoModal";
 import Header from "@/app/components/Header";
+import ListSettingsModal from "@/app/components/ListSettingsModal";
 import Title from "@/app/components/Title";
 import TodosContainer from "@/app/components/TodosContainer";
 import useAppState from "@/app/hooks/useAppState";
@@ -22,9 +23,9 @@ const ListPage: React.FC = () => {
 
   return (
     <>
-      <Header Modal={CreateTodoModal} />
+      <Header SettingsModal={ListSettingsModal} AddModal={CreateTodoModal} />
       <Title title={lists[Number(index)].title} />
-      <TodosContainer />
+      <TodosContainer todos={lists[Number(index)].todos} access="private" />
     </>
   );
 };

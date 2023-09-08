@@ -6,7 +6,12 @@ export type TodoType = {
 
 export type ListType = {
   title: string;
+  isPublic: boolean;
   todos: TodoType[];
+};
+
+export type PublicListsDictionary = {
+  [username: string]: ListType[] | null;
 };
 
 const isTodoArray = (value: unknown): value is TodoType[] => {
@@ -33,8 +38,10 @@ export const isListArray = (value: unknown): value is ListType[] => {
         typeof element === "object" &&
         element &&
         "title" in element &&
+        "isPublic" in element &&
         "todos" in element &&
         typeof element.title === "string" &&
+        typeof element.isPublic === "boolean" &&
         isTodoArray(element.todos)
     )
   );

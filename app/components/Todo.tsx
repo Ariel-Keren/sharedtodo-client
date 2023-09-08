@@ -10,19 +10,11 @@ type Props = {
 };
 
 const Todo: React.FC<Props> = ({ todo, todoIndex }) => {
-  const { lists, changeTodoState, removeTodo } = useAppState();
+  const { changeTodoState, removeTodo } = useAppState();
 
   const { changeTodoStateAPI, removeTodoAPI } = useAPI();
 
   const { index } = useParams();
-
-  if (
-    typeof index !== "string" ||
-    !Number.isInteger(Number(index)) ||
-    Number(index) < 0 ||
-    Number(index) >= lists.length
-  )
-    notFound();
 
   const changeThisTodoState = () => {
     changeTodoState(Number(index), todoIndex);

@@ -1,4 +1,5 @@
 import { TodoType } from "../types";
+import PublicTodo from "./PublicTodo";
 import Todo from "./Todo";
 
 type Props = {
@@ -6,6 +7,7 @@ type Props = {
   color: string;
   todos: TodoType[];
   indices: number[];
+  access: "private" | "public";
 };
 
 const TodoStateContainer: React.FC<Props> = ({
@@ -13,6 +15,7 @@ const TodoStateContainer: React.FC<Props> = ({
   color,
   todos,
   indices,
+  access,
 }) => {
   return (
     <div className="flex flex-col items-center w-full gap-2 my-2">
@@ -22,9 +25,11 @@ const TodoStateContainer: React.FC<Props> = ({
       >
         {title}
       </h2>
-      {todos.map((todo, index) => (
-        <Todo todo={todo} todoIndex={indices[index]} key={index} />
-      ))}
+      {access === "private"
+        ? todos.map((todo, index) => (
+            <Todo todo={todo} todoIndex={indices[index]} key={index} />
+          ))
+        : todos.map((todo, index) => <PublicTodo todo={todo} key={index} />)}
       {todos.length === 0 && (
         <p className="text-gray-600">This list is empty</p>
       )}

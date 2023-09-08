@@ -5,7 +5,7 @@ export const usernameSlice = createSlice({
   initialState: "",
   reducers: {
     setUsernameReducer: (_, action: PayloadAction<string>) => action.payload,
-    resetUsernameReducer: () => "" as string,
+    resetUsernameReducer: () => "",
   },
 });
 

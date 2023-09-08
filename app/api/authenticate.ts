@@ -10,9 +10,7 @@ const authenticate = async (
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password }),
   });
-
   if (!response.ok) return alert(await response.text());
-
   return await response.json();
 };
 

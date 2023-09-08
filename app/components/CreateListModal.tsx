@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import { useCookies } from "react-cookie";
 import { RiCloseFill } from "react-icons/ri";
 import useAppState from "../hooks/useAppState";
 import useAPI from "../hooks/useAPI";
