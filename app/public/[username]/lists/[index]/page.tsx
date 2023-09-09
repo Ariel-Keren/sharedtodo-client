@@ -8,7 +8,7 @@ import useAppState from "@/app/hooks/useAppState";
 import { notFound, useParams } from "next/navigation";
 import { useEffect } from "react";
 
-const ListPage: React.FC = () => {
+const PublicListPage: React.FC = () => {
   const { publicLists } = useAppState();
   const { getPublicListsAPI } = useAPI();
   const { username, index } = useParams();
@@ -45,4 +45,4 @@ const ListPage: React.FC = () => {
   );
 };
 
-export default ListPage;
+export default PublicListPage;
