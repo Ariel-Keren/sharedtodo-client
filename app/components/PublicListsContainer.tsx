@@ -18,7 +18,7 @@ const PublicListsContainer: React.FC = () => {
     );
 
   return (
-    <div className="grid grid-cols-5 gap-3 px-5">
+    <div className="flex flex-col items-center gap-3 px-5">
       {publicLists[username]?.map((list, index) => (
         <PublicList list={list} index={index} key={index} />
       ))}
