@@ -9,6 +9,8 @@ import removeList from "../api/removeList";
 import removeTodo from "../api/removeTodo";
 import toggleListVisibility from "../api/toggleListVisibility";
 import getPublicLists from "../api/getPublicLists";
+import changeUsername from "../api/changeUsername";
+import changePassword from "../api/changePassword";
 
 const useAPI = () => {
   const { username, setUsername, setLists, addPublicLists } = useAppState();
@@ -38,20 +40,13 @@ const useAPI = () => {
     setLists([]);
   };
 
-  const getPublicListsAPI = async (typedUsername: string) => {
-    const data: unknown = await getPublicLists(cookies.token, typedUsername);
-
-    if (!data) return addPublicLists(typedUsername, null);
-
-    if (
-      typeof data !== "object" ||
-      !("publicLists" in data) ||
-      !isListArray(data.publicLists)
-    )
-      return;
-
-    addPublicLists(typedUsername, data.publicLists);
+  const changeUsernameAPI = async (newUsername: string) => {
+    if (await changeUsername(cookies.token, username, newUsername))
+      setUsername(newUsername);
   };
+
+  const changePasswordAPI = (newPassword: string) =>
+    changePassword(cookies.token, username, newPassword);
 
   const addListAPI = (title: string) => addList(cookies.token, username, title);
 
@@ -70,8 +65,25 @@ const useAPI = () => {
   const removeTodoAPI = (listIndex: number, todoIndex: number) =>
     removeTodo(cookies.token, username, listIndex, todoIndex);
 
+  const getPublicListsAPI = async (typedUsername: string) => {
+    const data: unknown = await getPublicLists(cookies.token, typedUsername);
+
+    if (!data) return addPublicLists(typedUsername, null);
+
+    if (
+      typeof data !== "object" ||
+      !("publicLists" in data) ||
+      !isListArray(data.publicLists)
+    )
+      return;
+
+    addPublicLists(typedUsername, data.publicLists);
+  };
+
   return {
     authenticateAPI,
+    changeUsernameAPI,
+    changePasswordAPI,
     addListAPI,
     addTodoAPI,
     toggleListVisibilityAPI,
